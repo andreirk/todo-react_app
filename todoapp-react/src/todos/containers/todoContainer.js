@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux'
 import { PropTypes } from 'prop-types'
 import TodoTable from '../components/todoTable';
+import TodoBox from '../components/TodoBox';
 
 export class TodoContainer extends Component {
   constructor(props) {
@@ -40,6 +41,9 @@ export class TodoContainer extends Component {
   render() {
     return (
       <div className="todo-container">
+
+        <TodoBox items={this.props.todos}/>
+
         <TodoTable
           todos={this.props.todos}
           createTodo={this.createTodo}
