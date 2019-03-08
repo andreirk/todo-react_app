@@ -7,6 +7,8 @@ const API = 'http://localhost:3000/api'
 //Setting the todos URI
 
 const TODO_API = `${API}/todos`
+
+
 const PRIORITY_API = `${API}/priorities`
 
 // The CRUD Operations

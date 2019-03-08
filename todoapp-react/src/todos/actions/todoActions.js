@@ -14,6 +14,11 @@ export const GET_TODOS = '[Todo] GET_TODOS'
 export const GET_TODOS_SUCCESS = '[Todo] GET_TODOS_SUCCESS'
 export const GET_TODOS_ERROR = '[Todo] GET_TODOS_ERROR'
 
+//Read
+export const GET_PRIORITIES = '[Todo] GET_PRIORITIES'
+export const GET_PRIORITIES_SUCCESS = '[Todo] GET_PRIORITIES_SUCCESS'
+export const GET_PRIORITIES_ERROR = '[Todo] GET_PRIORITIES_ERROR'
+
 //Update
 export const START_EDITING ='[Todo] START_EDITING'
 export const CANCEL_EDITING = '[Todo] CANCEL_EDITING'
@@ -61,11 +66,26 @@ export function GetTodos(){
     })
   }
 }
+//Read
+export function GetPriorities(){
+  return (dispactch, getState) => {
+    return TodoApi.getPriorities().then(res => {
+      dispactch(GetPrioritySuccess(res))
+    })
+  }
+}
 
 export function GetTodoSuccess(todos){
   return {
     type:GET_TODOS_SUCCESS,
     todos
+  }
+}
+
+export function GetPrioritySuccess(priorities){
+  return {
+    type:GET_PRIORITIES_SUCCESS,
+    priorities
   }
 }
 

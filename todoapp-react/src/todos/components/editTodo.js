@@ -29,7 +29,7 @@ class EditTodo extends Component {
   // Input change handling methods
   changeNewTitle = (event) => {
     this.setState({title: event.target.value})
-  }
+  };
 
   changeNewDescription = (event) => {
     this.setState({description: event.target.value})

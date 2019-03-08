@@ -9,13 +9,11 @@ const TodoItems = (props) => (
             <Grid padded >
 
               <Grid.Column width={1}>
-                <Container textAlign='justified' fluid >
+                <Container >
                   <Checkbox  />
                 </Container>
-
               </Grid.Column>
-              <Grid.Column width={15}>
-
+              <Grid.Column width={14}>
 
             <Card.Content>
               <Card.Header>{todo.title}</Card.Header>
@@ -35,45 +33,67 @@ const TodoItems = (props) => (
                 </Grid.Column>
               </Grid>
             </div>
-            <Card.Content extra>
-              <div className='ui two buttons'>
-                <Button basic color='green'>
-                  Approve
-                </Button>
-                <Button basic color='red'>
-                  Decline
-                </Button>
-              </div>
-            </Card.Content>
+
+              </Grid.Column>
+              <Grid.Column>
+                <Icon name='trash alternate outline' size='big' color='red' />
               </Grid.Column>
             </Grid>
           </Card>
-
 
     })}
 
   </Card.Group>
 )
 
-const TodoSideBar = (props) => (
-  <Card.Group>
+const TodoSideBar = ({priorities}) => (
 
+  priorities.map(item => {
+    return   <Card.Group>
+      <Card centered >
+        <Card.Content>
+          <Card.Header>{item.title}</Card.Header>
+        </Card.Content>
+      </Card>
 
-  </Card.Group>
+    </Card.Group>
+  })
+
 )
 
 // TodoTable is a Stateless component
 const TodoBox = (props) => {
   return (
-    <Grid>
-      <Grid.Column width={2}>
-        Menu
-      </Grid.Column>
-      <Grid.Column width={14}>
-        <TodoItems items={props.items}/>
-      </Grid.Column>
+    <Container>
 
-    </Grid>
+      <Grid>
+        <Grid.Column width={2}>
+          Menu
+        </Grid.Column>
+        <Grid.Column width={14}>
+          <Menu>
+            <Menu.Item name='browse' >
+              Browse
+            </Menu.Item>
+
+            <Menu.Item name='submit' >
+              Submit
+            </Menu.Item>
+
+            <Menu.Menu position='right'>
+              <Menu.Item name='signup' >
+                Sign Up
+              </Menu.Item>
+
+              <Menu.Item name='help' >
+                Help
+              </Menu.Item>
+            </Menu.Menu>
+          </Menu>
+          <TodoItems items={props.items}/>
+        </Grid.Column>
+      </Grid>
+    </Container>
 
   )
 }

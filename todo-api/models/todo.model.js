@@ -1,11 +1,16 @@
-var mongoose = require('mongoose')
-var mongoosePaginate = require('mongoose-paginate')
+const mongoose = require('../libs/mongoose')
+const Schema = mongoose.Schema;
+const mongoosePaginate = require('mongoose-paginate')
 
-
-var ToDoSchema = new mongoose.Schema({
+const ToDoSchema = new Schema({
     title: String,
     description: String,
     date: Date,
+    priority: {
+        type: Schema.Types.ObjectId,
+        ref: 'Priority',
+    },
+    remindTime: Date,
     status: String
 })
 

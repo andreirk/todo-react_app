@@ -42,7 +42,7 @@ export class TodoContainer extends Component {
     return (
       <div className="todo-container">
 
-        <TodoBox items={this.props.todos}/>
+        <TodoBox items={this.props.todos} />
 
         <TodoTable
           todos={this.props.todos}

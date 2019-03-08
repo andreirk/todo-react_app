@@ -18,6 +18,11 @@ export function TodoListReducer(state = [], action) {
       return action.todos.data.data.docs;
     }
 
+    //Read
+    case TodoActions.GET_PRIORITIES_SUCCESS: {
+      return action.todos.data.data.docs;
+    }
+
     // The following Cases handle the data by mapping it. Mostly because they are related with the modification of a single Data
 
     //Update
