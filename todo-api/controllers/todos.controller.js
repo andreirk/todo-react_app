@@ -1,4 +1,4 @@
-const TodoService = require ('../services/todos.service')
+const TodoService = require ('../libs/services/todos.service')
 
 _this = this
 

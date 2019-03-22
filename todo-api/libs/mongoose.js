@@ -4,6 +4,9 @@ const config = require('config');
 const bluebird = require('bluebird');
 
 mongoose.set('debug', config.get('mongodb.debug'));
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
 mongoose.plugin(beautifyUnique);
 mongoose.Promise = bluebird;
 

@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon  --inspect ./bin/www"
+    "start": "nodemon  --inspect ./bin/www",
+    "test": "jest"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -35,6 +36,9 @@
     "yarn": "^1.13.0"
   },
   "devDependencies": {
-    "config": "^3.0.1"
+    "chai": "^4.2.0",
+    "config": "^3.0.1",
+    "jest": "^24.5.0",
+    "request": "^2.88.0"
   }
 }

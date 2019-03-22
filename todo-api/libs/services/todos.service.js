@@ -1,4 +1,4 @@
-const ToDo = require('../models/todo.model')
+const ToDo = require('../../models/todo.model')
 
 _this = this
 

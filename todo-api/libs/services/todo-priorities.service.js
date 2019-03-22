@@ -1,4 +1,4 @@
-const Priority = require('../models/priority.model')
+const Priority = require('../../models/priority.model')
 
 _this = this
 

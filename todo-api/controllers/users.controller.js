@@ -1,4 +1,4 @@
-const UserService = require ('../services/users.service')
+const UserService = require ('../libs/services/users.service')
 
 _this = this
 

@@ -1,4 +1,4 @@
-const PriorityService = require ('../services/todo-priorities.service')
+const PriorityService = require ('../libs/services/todo-priorities.service')
 
 _this = this
 
