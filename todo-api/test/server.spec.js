@@ -3,6 +3,7 @@ const request = require('request');
 // var http = require('http');
 const mongoose = require('../libs/mongoose');
 const chai = require('chai');
+const cash = require('../libs/redis');
 
 const assert = chai.assert;
 
@@ -19,6 +20,7 @@ describe('server tests', () => {
     server.on('close', () => {
       console.log('server close')
       mongoose.connection.close();
+      cash.quit();
     })
     server.close(done);
   });
@@ -26,10 +28,10 @@ describe('server tests', () => {
   describe('GET', () => {
       it('should return index string', done => {
         request('http://localhost:3000', function (error, response, body) {
-          console.log('error:', error); // Print the error if one occurred
-          console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-          console.log('body:', body); // Print the HTML for the Google homepage.
-
+          // console.log('error:', error); // Print the error if one occurred
+          // console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+          // console.log('body:', body); // Print the HTML for the Google homepage.
+          assert.equal(body, "index")
           done();
         });
       })
@@ -41,9 +43,9 @@ describe('server tests', () => {
           uri: 'http://localhost:3000/api/todos'
         },
         function (error, response, body) {
-          console.log('error:', error); // Print the error if one occurred
-          console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-          console.log('body:', body); // Print the HTML for the Google homepage.
+          // console.log('error:', error); // Print the error if one occurred
+          // console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+          // console.log('body:', body); // Print the HTML for the Google homepage.
           assert.equal(response.statusCode, 401)
           assert.equal(body, "Unauthorized")
           done();
@@ -63,9 +65,9 @@ describe('server tests', () => {
           }
         },
         function (error, response, body) {
-          console.log('error:', error); // Print the error if one occurred
-          console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-          console.log('body:', body); // Print the HTML for the Google homepage.
+          // console.log('error:', error); // Print the error if one occurred
+          // console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+          // console.log('body:', body); // Print the HTML for the Google homepage.
           assert.equal(response.statusCode, 200)
           assert.exists(body.token)
           done();
@@ -85,9 +87,9 @@ describe('server tests', () => {
           }
         },
         function (error, response, body) {
-          console.log('error:', error); // Print the error if one occurred
-          console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-          console.log('body:', body); // Print the HTML for the Google homepage.
+          // console.log('error:', error); // Print the error if one occurred
+          // console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+          // console.log('body:', body); // Print the HTML for the Google homepage.
           assert.equal(response.statusCode, 404);
           assert.notExists(body.token);
           done();
@@ -107,9 +109,9 @@ describe('server tests', () => {
           }
         },
         function (error, response, body) {
-          console.log('error:', error); // Print the error if one occurred
-          console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-          console.log('body:', body); // Print the HTML for the Google homepage.
+          // console.log('error:', error); // Print the error if one occurred
+          // console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+          // console.log('body:', body); // Print the HTML for the Google homepage.
 
           const token = body.token;
 
@@ -122,9 +124,9 @@ describe('server tests', () => {
               }
             },
             function (error, response, body) {
-              console.log('error:', error); // Print the error if one occurred
-              console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-              console.log('body:', body); // Print the HTML for the Google homepage.
+              // console.log('error:', error); // Print the error if one occurred
+              // console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+              // console.log('body:', body); // Print the HTML for the Google homepage.
               assert.equal(response.statusCode, 200);
               assert.exists(JSON.parse(body).data);
               done();
@@ -132,6 +134,12 @@ describe('server tests', () => {
         });
     })
 
+  })
+
+  describe('POST', () => {
+    describe('TODO REST API (CRUD)', () => {
+
+    })
   })
 
 })

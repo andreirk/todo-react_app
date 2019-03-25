@@ -2,7 +2,7 @@ const path = require('path');
 const defer = require('config/defer').deferConfig;
 
 module.exports =  {
-  secret: process.env.SECRET || 'mysecret',
+  secret: process.env.SECRET || 'my$uperStrong$ecret!!!',
   root: process.cwd(),
   server: {
     host: 'http://localhost',
@@ -33,4 +33,7 @@ module.exports =  {
       },
     }
   },
+  jwt: {
+    expiration_time: 3600,
+  }
 };

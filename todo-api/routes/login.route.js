@@ -4,19 +4,19 @@ const gravatar = require('gravatar');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
+const config = require('config');
 const User = require('../models/user.model');
 
 router.post('/', (req, res) => {
 
   const errors = {};
-
   const email = req.body.email;
   const password = req.body.password;
 
   User.findOne({email})
     .then(user => {
       if(!user) {
-        errors.email = 'User not found'
+        errors.email = 'User not found';
         return res.status(404).json(errors);
       }
 
@@ -28,8 +28,8 @@ router.post('/', (req, res) => {
               name: user.name,
               avatar: user.avatar
             }
-            jwt.sign(payload, 'secret', {
-              expiresIn: 3600
+            jwt.sign(payload, config.get('secret'), {
+              expiresIn: config.get('jwt.expiration_time')
             }, (err, token) => {
               if(err) console.error('There is some error in token', err);
               else {

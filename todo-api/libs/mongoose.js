@@ -7,6 +7,7 @@ mongoose.set('debug', config.get('mongodb.debug'));
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
+mongoose.set('useEstimatedDocumentCount', true);
 mongoose.plugin(beautifyUnique);
 mongoose.Promise = bluebird;
 
