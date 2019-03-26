@@ -35,5 +35,6 @@ module.exports =  {
   },
   jwt: {
     expiration_time: 3600,
+    blacklistName: "jwt-blacklist"
   }
 };

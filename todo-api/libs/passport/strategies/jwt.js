@@ -13,17 +13,25 @@ const opts = {
 
 module.exports = new JWTStrategy(opts, (jwt_payload, done) => {
   console.log(' --- JWT PAYLOAD IS:::', jwt_payload);
-  cash.keys('*', function (err, replies) {
-    // NOTE: code in this callback is NOT atomic
-    // this only happens after the the .exec call finishes.
-    console.log('reids KEYS ::: ', replies);
-  })
-  User.findById(jwt_payload.id)
-    .then(user => {
-      if(user) {
-        return done(null, user);
-      }
+  const jwtId = jwt_payload.id;
+  // check if this token exists in the blacklist
+  cash.get(`${config.get('jwt.blacklistName')}:${jwtId}`, function (err, exists) {
+    console.log('____ist there such MEMBER 1 ::: ', exists);
+    if(exists){
       return done(null, false);
-    })
-    .catch(err => console.error(err));
+    } else {
+
+      User.findById(jwtId)
+        .then(user => {
+          if(user) {
+            return done(null, user);
+          }
+          return done(null, false);
+        })
+        .catch(err => console.error(err));
+
+    }
+  });
+
+
 })

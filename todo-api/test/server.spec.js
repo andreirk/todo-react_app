@@ -132,6 +132,74 @@ describe('server tests', () => {
               done();
             });
         });
+    });
+
+    it('should not send todos to logged out users', done => {
+      request(
+        {
+          method: "post",
+          uri: 'http://localhost:3000/login',
+          json: true,
+          body: {
+            // mimeType: 'application/x-www-form-urlencoded',
+            email: 'example1@home.ru',
+            password: '123456'
+          }
+        },
+        function (error, response, body) {
+          // console.log('error:', error); // Print the error if one occurred
+          // console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+          // console.log('body:', body); // Print the HTML for the Google homepage.
+
+          const token = body.token;
+
+          request(
+            {
+              method: "GET",
+              uri: 'http://localhost:3000/api/todos',
+              headers: {
+                'Authorization': token
+              }
+            },
+            function (error, response, body) {
+              // console.log('error:', error); // Print the error if one occurred
+              // console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+              // console.log('body:', body); // Print the HTML for the Google homepage.
+              assert.equal(response.statusCode, 200);
+              assert.exists(JSON.parse(body).data);
+
+              request(
+                {
+                  method: "GET",
+                  uri: 'http://localhost:3000/logout',
+                  headers: {
+                    'Authorization': token
+                  }
+                },
+
+                function (err, response, body) {
+                  request(
+                    {
+                      method: "GET",
+                      uri: 'http://localhost:3000/api/todos',
+                      headers: {
+                        'Authorization': token
+                      }
+                    },
+                    function (error, response, body) {
+                      // console.log('error:', error); // Print the error if one occurred
+                      // console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+                      // console.log('body:', body); // Print the HTML for the Google homepage.
+                      assert.equal(response.statusCode, 401);
+                      assert.notExists(body.token);
+                      done();
+                    }
+                  )
+                }
+              );
+
+            });
+        });
     })
 
   })

@@ -9,6 +9,7 @@ const index = require('./routes/index.route');
 const api = require('./routes/api.route');
 const passport = require('./libs/passport');
 const login = require('./routes/login.route');
+const logout = require('./routes/logout.route');
 const register = require('./routes/register.route');
 
 const app = express();
@@ -32,8 +33,10 @@ require('./handlers/08-passport').init(app);
 
 app.use('/', index);
 app.use('/login', login);
+app.use('/logout', logout);
 app.use('/register', register);
 app.use('/api', passport.authenticate('jwt', { session: false }), api);
+
 
 // catch 404 and forward to error handler
 // app.use(function(req, res, next) {
